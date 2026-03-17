@@ -31,7 +31,7 @@ This starts a local development server that hosts your web app. Open [localhost:
 To stop the server, you can press `[ctrl] + [c]` in the terminal window; or just close the terminal window. 
 
 ## Documentation
-- [js-on-fhir Library](https://www.npmjs.com/package/@i4mi/js-on-fhir)
+- [js-on-fhir Library](https://github.com/i4mi/fhir-wrappers.ts/tree/master/web)
 - [FHIR Specification](https://hl7.org/fhir/R4/)
 - [W3School Tutorial for JavaScript](https://www.w3schools.com/js/DEFAULT.asp)
 

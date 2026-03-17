@@ -21,7 +21,8 @@ async function buttonClickHandler() {
     /*
         TODO:
             - use jsOnFhir to make a request for loading your patient resource 
-            - extract the patient first name from the loaded resource
+            - log the result to the console
+            - extract the patient given name from the loaded resource
             - set the name to the patientNameSpan
     */
     patientNameSpan.innerText = 'World!';
