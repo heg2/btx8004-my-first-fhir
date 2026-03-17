@@ -16,7 +16,7 @@ const jsOnFhir = new JSOnFhir(
     }
 );
 
-// this function is run when the button is clicked
+// this function is called when the button is clicked
 async function buttonClickHandler() {
     /*
         TODO:
