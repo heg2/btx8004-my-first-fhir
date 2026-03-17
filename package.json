@@ -7,7 +7,7 @@
     "start": "vite"
   },
   "dependencies": {
-    "@i4mi/js-on-fhir": "^1.1.0"
+    "@i4mi/js-on-fhir": "^1.1.1"
   },
   "devDependencies": {
     "vite": "^7.3.0"
