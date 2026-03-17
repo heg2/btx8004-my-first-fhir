@@ -1,0 +1,15 @@
+{
+  "name": "my-first-fhir",
+  "version": "0.0.1",
+  "description": "App template for tasks in BTX8004 interoperability",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite"
+  },
+  "dependencies": {
+    "@i4mi/js-on-fhir": "^1.1.0"
+  },
+  "devDependencies": {
+    "vite": "^7.3.0"
+  }
+}
