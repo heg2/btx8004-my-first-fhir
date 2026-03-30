@@ -26,5 +26,5 @@ async function buttonClickHandler() {
             - extract the patient given name from the loaded resource
             - set the name to the patientNameSpan
     */
-    patientNameSpan.innerText = 'World!';
+    patientNameSpan.innerText = familyNameInput.value;
 }
