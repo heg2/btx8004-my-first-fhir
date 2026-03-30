@@ -14,9 +14,11 @@ const jsOnFhir = new JSOnFhir(
 );
 
 // handleAuthResponse() is called every time the page loads, and catches the callback during OAuth flow
-jsOnFhir.handleAuthResponse().then(() => {
-    console.log('auth response successful');
-    loadPatient();
+jsOnFhir.handleAuthResponse().then((response) => {
+    if (response) {
+        console.log('auth successful', response);
+        loadPatient();
+    }
 });
 
 
