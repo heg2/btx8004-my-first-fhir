@@ -9,11 +9,11 @@ loadButton.addEventListener('click', buttonClickHandler);
 
 // set up js-on-fhir library TODO: enter correct value(s) for the medinf lab server
 const jsOnFhir = new JSOnFhir(
-    'https//???',               // the BASE URL of the server
-    '',                         // the client id  - only needed for SMART on FHIR flow (not necessary with medinf lab server)
-    '',                         // the redirect url - only needed for SMART on FHIR flow (not necessary with medinf lab server)
-    {                           // options
-        doesNotNeedAuth: true   // disable auth mechanism since it's not necessary with medinf lab server
+    'https://fhir.medinflab.ti.bfh.ch', // the BASE URL of the server (without /fhir endpoint)
+    '',                                 // the client id - only needed for SMART on FHIR flow (not necessary with medinf lab server)
+    '',                                 // the redirect url - only needed for SMART on FHIR flow (not necessary with medinf lab server)
+    {                                   // options
+        doesNotNeedAuth: true           // disable auth mechanism since it's not necessary with medinf lab server
     }
 );
 
@@ -26,5 +26,23 @@ async function buttonClickHandler() {
             - extract the patient given name from the loaded resource
             - set the name to the patientNameSpan
     */
-    patientNameSpan.innerText = 'World!';
+
+    try {
+        if (familyNameInput.value) {
+            const searchBundle = await jsOnFhir.search('Patient', {family: familyNameInput.value});
+            if (!searchBundle.entry) {
+                window.alert('No patient found for input=' + familyNameInput.value);
+                return;
+            }
+            const patientResource = searchBundle.entry[0].resource;
+            
+            // const patientResource = await jsOnFhir.getResource('Patient', '155');
+
+            patientNameSpan.innerHTML = patientResource?.name[0]?.given[0];
+        }
+    } 
+    catch(e) {
+        console.error(e);
+        window.alert('Something went wrong. See console for details.')
+    }
 }
