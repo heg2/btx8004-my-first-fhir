@@ -2,29 +2,29 @@ import { JSOnFhir } from "@i4mi/js-on-fhir";
 
 // connect to the relevant elements of the DOM
 const patientNameSpan = document.getElementById('patient-name-span');
-const familyNameInput = document.getElementById('name-input');
-const loadButton = document.getElementById('load-button');
-loadButton.addEventListener('click', buttonClickHandler);
+const loginButton = document.getElementById('login-button');
+loginButton.addEventListener('click', login);
 
-
-// set up js-on-fhir library TODO: enter correct value(s) for the medinf lab server
 const jsOnFhir = new JSOnFhir(
-    'https//???',               // the BASE URL of the server
-    '',                         // the client id  - only needed for SMART on FHIR flow (not necessary with medinf lab server)
-    '',                         // the redirect url - only needed for SMART on FHIR flow (not necessary with medinf lab server)
-    {                           // options
-        doesNotNeedAuth: true   // disable auth mechanism since it's not necessary with medinf lab server
-    }
+    'https://test.midata.coop', // the BASE URL of the server
+    'vue-fhir-demo',            // the client id 
+    'http://localhost:5173',    // the redirect url 
+    {}                          // options
 );
 
-// this function is called when the button is clicked
-async function buttonClickHandler() {
-    /*
-        TODO:
-            - use jsOnFhir to make a request for loading your patient resource 
-            - log the result to the console
-            - extract the patient given name from the loaded resource
-            - set the name to the patientNameSpan
-    */
-    patientNameSpan.innerText = familyNameInput.value;
+jsOnFhir.handleAuthResponse().then(() => {
+    console.log('auth response successful');
+    loadPatient();
+});
+
+async function loadPatient() {
+    const searchBundle = await jsOnFhir.search('Patient', {});
+    if (searchBundle.entry.length > 0) {
+        const patientResource = searchBundle.entry[0].resource;
+        patientNameSpan.innerText = patientResource.name[0].given[0];
+    }
+}
+
+async function login() {
+    jsOnFhir.authenticate();
 }
