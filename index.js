@@ -2,6 +2,7 @@ import { JSOnFhir } from "@i4mi/js-on-fhir";
 
 // connect to the relevant elements of the DOM
 const patientNameSpan = document.getElementById('patient-name-span');
+const familyNameInput = document.getElementById('name-input');
 const loadButton = document.getElementById('load-button');
 loadButton.addEventListener('click', buttonClickHandler);
 
