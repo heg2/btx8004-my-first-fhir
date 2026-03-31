@@ -7,7 +7,7 @@ const loadButton = document.getElementById('load-button');
 loadButton.addEventListener('click', buttonClickHandler);
 
 
-// set up js-on-fhir library TODO: enter correct value(s) for the medinf lab server
+// set up js-on-fhir library 
 const jsOnFhir = new JSOnFhir(
     'https://fhir.medinflab.ti.bfh.ch', // the BASE URL of the server (without /fhir endpoint)
     '',                                 // the client id - only needed for SMART on FHIR flow (not necessary with medinf lab server)
@@ -19,26 +19,29 @@ const jsOnFhir = new JSOnFhir(
 
 // this function is called when the button is clicked
 async function buttonClickHandler() {
-    /*
-        TODO:
-            - use jsOnFhir to make a request for loading your patient resource 
-            - log the result to the console
-            - extract the patient given name from the loaded resource
-            - set the name to the patientNameSpan
-    */
-
     try {
         if (familyNameInput.value) {
+            // use js-on-fhir to search for a patient resource matching the familyNameInput.value
             const searchBundle = await jsOnFhir.search('Patient', {family: familyNameInput.value});
+            // log the result to the console
+            console.log('Got bundle with ' + searchBundle.entry?.length + ' entries:', searchBundle);
+
+            // notify user if there is no matching resource 
             if (!searchBundle.entry) {
                 window.alert('No patient found for input=' + familyNameInput.value);
                 return;
             }
-            const patientResource = searchBundle.entry[0].resource;
-            
-            // const patientResource = await jsOnFhir.getResource('Patient', '155');
 
-            patientNameSpan.innerHTML = patientResource?.name[0]?.given[0];
+            // Alternative if we know the logical id - direct fetch:
+            // const patId = '155';
+            // const patientResource = await jsOnFhir.getResource('Patient', id);
+
+            // extract the patient given name from the loaded resource
+            const patientResource = searchBundle.entry[0].resource;
+            const givenName = patientResource?.name[0]?.given[0]
+
+            // set the name to the patientNameSpan
+            patientNameSpan.innerHTML = givenName;
         }
     } 
     catch(e) {
