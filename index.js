@@ -10,8 +10,8 @@ loadButton.addEventListener('click', buttonClickHandler);
 // set up js-on-fhir library 
 const jsOnFhir = new JSOnFhir(
     'https://fhir.medinflab.ti.bfh.ch', // the BASE URL of the server (without /fhir endpoint)
-    '',                                 // the client id - only needed for SMART on FHIR flow (not necessary with medinf lab server)
-    '',                                 // the redirect url - only needed for SMART on FHIR flow (not necessary with medinf lab server)
+    '',                                 // without auth, we dont need client id 
+    '',                                 // without auth, we dont need redirect url
     {                                   // options
         doesNotNeedAuth: true           // disable auth mechanism since it's not necessary with medinf lab server
     }
@@ -23,6 +23,7 @@ async function buttonClickHandler() {
         if (familyNameInput.value) {
             // use js-on-fhir to search for a patient resource matching the familyNameInput.value
             const searchBundle = await jsOnFhir.search('Patient', {family: familyNameInput.value});
+
             // log the result to the console
             console.log('Got bundle with ' + searchBundle.entry?.length + ' entries:', searchBundle);
 
