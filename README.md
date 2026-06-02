@@ -9,7 +9,7 @@ Clone this repository by entering the following command to your terminal:
 ```bash
 git clone https://github.com/heg2/btx8004-my-first-fhir
 ```
-If you don't want to use Git to clone the repository, you can also download the code [as a ZIP file](https://github.com/heg2/btx8004-my-first-fhir/archive/refs/heads/main.zip).
+If you don't want to use Git to clone the repository, you can also download the code [as a ZIP file](https://github.com/heg2/btx8004-my-first-fhir/archive/refs/heads/solution-example.zip).
 
 When you successfully cloned the repository, change into the working directory using:
 ```bash
